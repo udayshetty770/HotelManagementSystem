@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel GQT Billing System</title>
+</head>
+<body>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+h1, h2, h3 {
+    color: #333;
+}
+table {
+    width: 100%;
+    margin: 10px 0;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid #ddd;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: #218838;
+}
+input[type="text"], input[type="number"] {
+    padding: 8px;
+    width: 90%;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#output {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+    </style>
+    <div class="container">
+        <h1>Welcome to Hotel GQT</h1>
+        <div id="welcomeSection">
+            <label for="name">Enter your name: </label>
+            <input type="text" id="name" placeholder="Your Name">
+            <button onclick="startOrder()">Start Order</button>
+        </div>
+        <div id="orderSection" style="display: none;">
+            <h2>Dear <span id="customerName"></span>, Welcome!!</h2>
+            <h3>Menu</h3>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
+                <tr><td>1</td><td>Water</td><td>10/-</td></tr>
+                <tr><td>2</td><td>Pepsi</td><td>20/-</td></tr>
+                <tr><td>3</td><td>Pizza</td><td>100/-</td></tr>
+                <tr><td>4</td><td>Burger</td><td>60/-</td></tr>
+                <tr><td>5</td><td>Fries</td><td>50/-</td></tr>
+            </table>
+            <label for="itemId">Enter your Dish ID: </label>
+            <input type="number" id="itemId" min="1" max="5">
+            <label for="itemQuantity">Enter Quantity: </label>
+            <input type="number" id="itemQuantity" min="1">
+            <button onclick="calculateTotal()">Calculate Total</button>
+            <div id="output" style="display: none;">
+                <p>Your item is <span id="itemName"></span>, Quantity is <span id="quantity"></span>, Subtotal is <span id="subtotal"></span>/-</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function startOrder() {
+    const name = document.getElementById("name").value;
+    if (name) {
+        document.getElementById("customerName").innerText = name;
+        document.getElementById("welcomeSection").style.display = "none";
+        document.getElementById("orderSection").style.display = "block";
+    } else {
+        alert("Please enter your name to continue.");
+    }
+}
+
+function calculateTotal() {
+    const itemId = parseInt(document.getElementById("itemId").value);
+    const itemQuantity = parseInt(document.getElementById("itemQuantity").value);
+    let itemName = "";
+    let itemPrice = 0;
+
+    switch (itemId) {
+        case 1:
+            itemName = "Water";
+            itemPrice = 10;
+            break;
+        case 2:
+            itemName = "Pepsi";
+            itemPrice = 20;
+            break;
+        case 3:
+            itemName = "Pizza";
+            itemPrice = 100;
+            break;
+        case 4:
+            itemName = "Burger";
+            itemPrice = 60;
+            break;
+        case 5:
+            itemName = "Fries";
+            itemPrice = 50;
+            break;
+        default:
+            alert("Invalid Dish ID. Please select an ID between 1 and 5.");
+            return;
+    }
+
+    if (itemQuantity > 0) {
+        const subtotal = itemPrice * itemQuantity;
+        document.getElementById("itemName").innerText = itemName;
+        document.getElementById("quantity").innerText = itemQuantity;
+        document.getElementById("subtotal").innerText = subtotal;
+        document.getElementById("output").style.display = "block";
+    } else {
+        alert("Please enter a valid quantity.");
+    }
+}
+
+    </script>
+</body>
+</html>
